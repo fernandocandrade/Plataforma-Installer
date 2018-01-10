@@ -1,0 +1,9 @@
+FROM node:carbon
+
+WORKDIR /usr/src
+ENV POSTGRES_HOST postgres
+RUN git clone https://github.com/ONSBR/Plataforma-ApiCore.git
+RUN git clone https://github.com/ONSBR/Plataforma-Domain.git
+RUN cd Plataforma-Domain/Platform.Cli && npm install && npm link
+RUN cd /usr/src/Plataforma-ApiCore/Plataforma.ApiCore && ls && plataforma --run
+
