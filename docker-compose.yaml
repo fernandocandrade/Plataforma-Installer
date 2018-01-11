@@ -25,3 +25,10 @@ services:
       - POSTGRES_HOST=postgres
     ports:
       - 9100:9100
+  process_memory:
+    build: 
+      context: ./Dockerfiles
+      dockerfile: ProcessMemory
+    container_name: "process_memory"    
+    ports:
+      - 9091:9091
