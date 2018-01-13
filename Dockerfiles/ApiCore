@@ -5,4 +5,5 @@ RUN git clone https://github.com/ONSBR/Plataforma-ApiCore.git
 RUN git clone https://github.com/ONSBR/Plataforma-Domain.git
 RUN cd /usr/src/Plataforma-Domain/Platform.Cli && npm install && npm link
 WORKDIR /usr/src/Plataforma-ApiCore/Plataforma.ApiCore
+RUN plataforma --deploy local
 ENTRYPOINT [ "plataforma", "--run" ]
