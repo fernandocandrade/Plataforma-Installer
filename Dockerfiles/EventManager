@@ -1,0 +1,7 @@
+FROM node:carbon
+
+WORKDIR /usr/src
+RUN git clone https://github.com/ONSBR/Plataforma-EventManager.git
+RUN cd /usr/src/Plataforma-EventManager && npm install
+WORKDIR /usr/src/Plataforma-EventManager
+ENTRYPOINT [ "node", "app.js" ]

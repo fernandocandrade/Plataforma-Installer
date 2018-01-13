@@ -3,12 +3,12 @@ version: "2"
 services:  
   postgres:
     image: postgres:latest
-    container_name: "postgres"        
+    container_name: "postgres"
     ports:
-      - 5432:5432    
+      - 5432:5432
   adminer:
     image: adminer:latest
-    container_name: "adminer"        
+    container_name: "adminer"
     ports:
       - 8080:8080
   pgadmin:
@@ -29,6 +29,13 @@ services:
     build: 
       context: ./Dockerfiles
       dockerfile: ProcessMemory
-    container_name: "process_memory"    
+    container_name: "process_memory"
     ports:
       - 9091:9091
+  event_manager:
+    build: 
+      context: ./Dockerfiles
+      dockerfile: EventManager
+    container_name: "event_manager"
+    ports:
+      - 8081:8081
