@@ -24,7 +24,7 @@ services:
     environment:
       - POSTGRES_HOST=postgres
     ports:
-      - 9100:9100
+      - 9100:9110
   process_memory:
     build: 
       context: ./Dockerfiles
