@@ -39,3 +39,16 @@ services:
     container_name: "event_manager"
     ports:
       - 8081:8081
+  executor:
+    build:
+      context: ./Dockerfiles
+      dockerfile: Executor
+    container_name: "executor"
+    ports:
+      - 8000:8000
+  registry:
+    image: "registry:2"
+    container_name: "registry"
+    ports:
+      - 5000:5000
+
