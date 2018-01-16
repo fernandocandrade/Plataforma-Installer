@@ -1,6 +1,6 @@
 version: "2"
 
-services:  
+services:
   postgres:
     image: postgres:latest
     container_name: "postgres"
@@ -15,9 +15,9 @@ services:
     image: fenglc/pgadmin4:latest
     container_name: "pgadmin"
     ports:
-      - 5050:5050    
+      - 5050:5050
   apicore:
-    build: 
+    build:
       context: ./Dockerfiles
       dockerfile: ApiCore
     container_name: "apicore"
@@ -26,19 +26,22 @@ services:
     ports:
       - 9100:9110
   process_memory:
-    build: 
+    build:
       context: ./Dockerfiles
       dockerfile: ProcessMemory
     container_name: "process_memory"
     ports:
       - 9091:9091
   event_manager:
-    build: 
+    build:
       context: ./Dockerfiles
       dockerfile: EventManager
     container_name: "event_manager"
     ports:
       - 8081:8081
+    environment:
+      - EXECUTOR_HOST=executor
+      - ROUTER_HOST=http_router
   executor:
     build:
       context: ./Dockerfiles
