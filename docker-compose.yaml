@@ -44,6 +44,8 @@ services:
       context: ./Dockerfiles
       dockerfile: Executor
     container_name: "executor"
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - 8000:8000
   registry:
