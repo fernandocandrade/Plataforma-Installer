@@ -47,7 +47,7 @@ services:
       context: ./Dockerfiles
       dockerfile: Executor
     container_name: "executor"
-    volumes: 
+    volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - 8000:8000
@@ -56,4 +56,18 @@ services:
     container_name: "registry"
     ports:
       - 5000:5000
-
+  influxdb:
+      image: influxdb:alpine
+      container_name: "influxdb"
+      ports:
+        - "8086:8086"
+  chronograf:
+    image: chronograf:alpine
+    container_name: "chronograf"
+    ports:
+      - 8888:8888
+  grafana:
+    image: grafana/grafana
+    container_name: "grafana"
+    ports:
+      - 8581:3000
