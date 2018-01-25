@@ -71,3 +71,7 @@ services:
     container_name: "grafana"
     ports:
       - 8581:3000
+networks:
+  default:
+    external:
+      name: plataforma_network
