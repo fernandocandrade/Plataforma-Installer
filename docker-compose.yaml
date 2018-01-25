@@ -23,6 +23,13 @@ services:
     container_name: "process_memory"
     ports:
       - 9091:9091
+  apicore:
+    build:
+      context: ./Dockerfiles
+      dockerfile: ApiCore
+    container_name: "apicore"
+    ports:
+      - 9110:9110
   event_manager:
     build:
       context: ./Dockerfiles
