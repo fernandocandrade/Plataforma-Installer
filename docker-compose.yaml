@@ -16,15 +16,6 @@ services:
     container_name: "pgadmin"
     ports:
       - 5050:5050
-  apicore:
-    build:
-      context: ./Dockerfiles
-      dockerfile: ApiCore
-    container_name: "apicore"
-    environment:
-      - POSTGRES_HOST=postgres
-    ports:
-      - 9100:9110
   process_memory:
     build:
       context: ./Dockerfiles
