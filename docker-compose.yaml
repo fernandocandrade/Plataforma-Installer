@@ -10,7 +10,7 @@ services:
     image: mongo:latest
     container_name: "mongo"
     ports:
-      - 27017:27017
+      - 27017:27017      
   adminer:
     image: adminer:latest
     container_name: "adminer"
@@ -74,7 +74,7 @@ services:
     container_name: "grafana"
     ports:
       - 8581:3000
- networks:
+networks:
   default:
     external:
       name: plataforma_network
