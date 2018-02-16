@@ -23,6 +23,8 @@ services:
     container_name: "process_memory"
     ports:
       - 9091:9091
+    environment:
+      - MONGO_HOST=mongo
   apicore:
     build:
       context: ./Dockerfiles
