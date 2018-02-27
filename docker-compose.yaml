@@ -37,6 +37,12 @@ services:
     container_name: "apicore"
     ports:
       - 9110:9110
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_USER=postgres
+      - PROCESS_MEMORY_PORT=9091
+      - COREAPI_URL=apicore
+      - COREAPI_PORT=9110
   event_manager:
     build:
       context: ./Dockerfiles
