@@ -1,4 +1,4 @@
-FROM node:carbon
+FROM pmoneda/python:latest
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 ENV NVM_DIR /usr/local/nvm
 ENV NODE_VERSION 8.9.4
