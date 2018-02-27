@@ -2,7 +2,7 @@ FROM node:carbon
 
 WORKDIR /usr/src
 RUN git clone https://github.com/ONSBR/Plataforma-ApiCore.git
-RUN git clone https://github.com/ONSBR/Plataforma-Domain.git
+RUN git -b feature/python-template  clone https://github.com/ONSBR/Plataforma-Domain.git
 RUN cd /usr/src/Plataforma-Domain/Platform.Cli && npm install && npm link
 WORKDIR /usr/src/Plataforma-ApiCore/apicore
 ENV PORT=9110
