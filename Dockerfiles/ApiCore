@@ -1,7 +1,7 @@
 FROM node:carbon
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 4.4.7
+ENV NODE_VERSION latest
 
 # install nvm
 # https://github.com/creationix/nvm#install-script
