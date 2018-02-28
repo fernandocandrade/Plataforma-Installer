@@ -1,8 +1,11 @@
 FROM pmoneda/python:latest
 
 WORKDIR /usr/src
-RUN git clone https://github.com/ONSBR/Plataforma-ApiCore.git
+RUN git clone -b feature/migracao-versao-nova https://github.com/ONSBR/Plataforma-ApiCore.git
+RUN ls ./Plataforma-ApiCore
 WORKDIR /usr/src/Plataforma-ApiCore/plataforma_apicore
+RUN pwd
+
 ENV PORT=9110
 ENV POSTGRES_HOST postgres
 ENV POSTGRES_USER postgres
