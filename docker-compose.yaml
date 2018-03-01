@@ -33,7 +33,7 @@ services:
   apicore:
     build:
       context: ./Dockerfiles
-      dockerfile: ApiCore
+      dockerfile: ApiCore.Node
     container_name: "apicore"
     ports:
       - 9110:9110
