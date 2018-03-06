@@ -1,7 +1,6 @@
-FROM node:carbon
-
-WORKDIR /usr/src
-RUN git clone https://github.com/ONSBR/Plataforma-EventManager.git
-RUN cd /usr/src/Plataforma-EventManager && npm install
-WORKDIR /usr/src/Plataforma-EventManager
-ENTRYPOINT [ "node", "app.js" ]
+FROM alpine:3.7
+RUN apk update && apk add ca-certificates && apk add wget && rm -rf /var/cache/apk/*
+ADD event-manager /
+ENV PORT 8081
+ENTRYPOINT ["/event-manager"]
+EXPOSE 8081
