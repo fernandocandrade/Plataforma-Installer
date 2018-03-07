@@ -48,7 +48,7 @@ services:
     environment:
       - EXECUTOR_HOST=executor
       - ROUTER_HOST=http_router
-      - INFLUX_HOST=influxdbs
+      - INFLUX_HOST=influxdb
   executor:
     build:
       context: ./Dockerfiles
