@@ -1,7 +1,7 @@
 FROM pmoneda/python:latest
 
 WORKDIR /usr/src
-RUN git clone -b feature/migracao-versao-nova https://github.com/ONSBR/Plataforma-ApiCore.git
+RUN git clone https://github.com/ONSBR/Plataforma-ApiCore.git
 RUN ls ./Plataforma-ApiCore
 WORKDIR /usr/src/Plataforma-ApiCore/plataforma_apicore
 RUN pwd
@@ -14,4 +14,4 @@ RUN pip install -r requirements.txt
 RUN pip install gunicorn
 
 EXPOSE 9110
-ENTRYPOINT python main.py && gunicorn -b 0.0.0.0:9110 api.server:app
+ENTRYPOINT python main.py && gunicorn -b 0.0.0.0:9110 app.wsgi:app
