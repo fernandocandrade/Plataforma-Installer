@@ -49,6 +49,11 @@ services:
       - EXECUTOR_HOST=executor
       - ROUTER_HOST=http_router
       - INFLUX_HOST=influxdb
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_API_PORT=15672
+      - RABBITMQ_AMQP_PORT=15672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
   executor:
     build:
       context: ./Dockerfiles
@@ -71,20 +76,21 @@ services:
     ports:
       - 5000:5000
   influxdb:
-      image: influxdb:alpine
-      container_name: "influxdb"
-      ports:
-        - "8086:8086"
+    image: influxdb:alpine
+    container_name: "influxdb"
+    ports:
+      - "8086:8086"
+  rabbitmq:
+    image:  rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672
   chronograf:
     image: chronograf:alpine
     container_name: "chronograf"
     ports:
       - 8888:8888
-  grafana:
-    image: grafana/grafana
-    container_name: "grafana"
-    ports:
-      - 8581:3000
 networks:
   default:
     external:
