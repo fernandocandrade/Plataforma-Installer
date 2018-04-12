@@ -49,16 +49,35 @@ services:
       - EXECUTOR_HOST=executor
       - ROUTER_HOST=http_router
       - INFLUX_HOST=influxdb
+      - APICORE_HOST=apicore
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_API_PORT=15672
-      - RABBITMQ_AMQP_PORT=15672
+      - RABBITMQ_AMQP_PORT=5672
       - RABBITMQ_USERNAME=guest
       - RABBITMQ_PASSWORD=guest
+      - MONGO_HOST=mongo:27017
+    depends_on:
+      - "rabbitmq"
   executor:
     build:
       context: ./Dockerfiles
       dockerfile: Executor
     container_name: "executor"
+    environment:
+      - PROCESS_MEMORY_URL=process_memory
+      - PROCESS_MEMORY_PORT=9091
+      - COREAPI_URL=apicore
+      - COREAPI_PORT=9110
+      - EVENT_MANAGER_URL=event_manager
+      - EVENT_MANAGER_PORT=8081
+      - EXEC=gunicorn -b :8000 runner.api:runner_api
+    ports:
+      - 8000:8000
+  celery:
+    build:
+      context: ./Dockerfiles
+      dockerfile: Celery
+    container_name: "celery"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
@@ -68,8 +87,13 @@ services:
       - COREAPI_PORT=9110
       - EVENT_MANAGER_URL=event_manager
       - EVENT_MANAGER_PORT=8081
-    ports:
-      - 8000:8000
+      - RABBITMQ_URL=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+      - C_FORCE_ROOT=true
+    depends_on:
+      - "event_manager"
   registry:
     image: "registry:2"
     container_name: "registry"

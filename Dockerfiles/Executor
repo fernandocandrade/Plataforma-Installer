@@ -1,10 +1,6 @@
-FROM pmoneda/python:latest
+FROM pmoneda/executor_base:latest
 
 WORKDIR /app
-RUN git clone https://github.com/ONSBR/Plataforma-Executor.git /app
-
-RUN pip install -U pip gunicorn
-RUN pip install -r requirements.txt
-
+RUN git clone -b propose/celery https://github.com/ONSBR/Plataforma-Executor.git /app
 EXPOSE 8000
-ENTRYPOINT ["gunicorn", "-b", ":8000", "runner.api:runner_api"]
+ENTRYPOINT $EXEC

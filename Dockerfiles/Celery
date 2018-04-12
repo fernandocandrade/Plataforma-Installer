@@ -1,0 +1,6 @@
+FROM pmoneda/executor_base:latest
+
+WORKDIR /app
+RUN git clone -b propose/celery https://github.com/ONSBR/Plataforma-Executor.git /app
+#RUN adduser --disabled-password --gecos '' celery_user
+ENTRYPOINT celery -A tasks worker -Q event.executor.queue,event.persist.queue --loglevel=info
