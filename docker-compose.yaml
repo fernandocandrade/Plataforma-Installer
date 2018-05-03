@@ -81,6 +81,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
+      - DEBUG_MODE=True
       - PROCESS_MEMORY_URL=process_memory
       - PROCESS_MEMORY_PORT=9091
       - COREAPI_URL=apicore
