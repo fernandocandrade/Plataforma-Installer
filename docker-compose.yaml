@@ -38,6 +38,14 @@ services:
       - PROCESS_MEMORY_PORT=9091
       - COREAPI_URL=apicore
       - COREAPI_PORT=9110
+  git-server:
+    image: pmoneda/git-server
+    container_name: git-server
+    ports:
+      - "2222:22"
+    volumes:
+      - ~/git-server/keys:/git-server/keys
+      - ~/git-server/repos:/git-server/repos
   event_manager:
     build:
       context: ./Dockerfiles
