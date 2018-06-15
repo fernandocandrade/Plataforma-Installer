@@ -1,0 +1,14 @@
+FROM pmoneda/go_alpine:latest
+RUN apk add --no-cache \
+  bash \
+  git
+
+RUN mkdir -p "/git-server/keys"
+RUN mkdir -p "/git-server/repos"
+RUN mkdir -p "/worker/deploys"
+
+ADD deployer /
+ENV PORT 6970
+RUN chmod +x deployer
+ENTRYPOINT ["/deployer"]
+EXPOSE 6970
