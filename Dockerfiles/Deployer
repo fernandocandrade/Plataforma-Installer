@@ -6,6 +6,7 @@ RUN apk add --no-cache \
 RUN mkdir -p "/git-server/keys"
 RUN mkdir -p "/git-server/repos"
 RUN mkdir -p "/worker/deploys"
+RUN mkdir -p "/worker/template"
 
 ADD deployer /
 ENV PORT 6970
