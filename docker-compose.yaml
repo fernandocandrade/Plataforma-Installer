@@ -74,6 +74,15 @@ services:
       - EXEC=gunicorn -b :8000 runner.api:runner_api
     ports:
       - 8000:8000
+  authprovider:
+    build:
+      context: ./Dockerfiles
+      dockerfile: AuthProvider
+    container_name: "authprovider"
+    environment:
+      - PORT=8085
+    ports:
+      - 8085:8085
   celery:
     build:
       context: ./Dockerfiles
