@@ -1,0 +1,18 @@
+FROM microsoft/dotnet:2.1-sdk
+
+WORKDIR /usr/src
+RUN git clone https://github.com/ONSBR/Plataforma-AuthProvider.git /usr/src
+
+RUN pwd
+
+WORKDIR /usr/src/api/server
+
+ENV PORT=8085
+
+EXPOSE 8085
+
+RUN dotnet publish ./ONS.AuthProvider.Api.csproj -o ./published
+
+WORKDIR /usr/src/api/server/published
+
+ENTRYPOINT ["dotnet", "./ONS.AuthProvider.Api.dll"]
