@@ -6,13 +6,13 @@ RUN git clone https://github.com/ONSBR/Plataforma-AuthProvider.git /usr/src
 
 RUN pwd
 
-RUN mkdir temp
+RUN mkdir tmp
 
 WORKDIR /usr/src/api/oauth
 
 ENV PORT=8085
 
-ENV Temp=/usr/src/temp/ 
+ENV Temp=/usr/src/tmp/ 
 
 EXPOSE 8085
 
