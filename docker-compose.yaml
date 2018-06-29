@@ -65,8 +65,31 @@ services:
       - RABBITMQ_USERNAME=guest
       - RABBITMQ_PASSWORD=guest
       - MONGO_HOST=mongo:27017
+      - MAESTRO_HOST=maestro
     depends_on:
       - "rabbitmq"
+  maestro:
+    build:
+      context: ./Dockerfiles
+      dockerfile: Maestro
+    container_name: "maestro"
+    ports:
+      - 6971:6971
+    environment:
+      - EXECUTOR_HOST=executor
+      - PROCESS_MEMORY_HOST=process_memory
+      - ROUTER_HOST=http_router
+      - INFLUX_HOST=influxdb
+      - APICORE_HOST=apicore
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_API_PORT=15672
+      - RABBITMQ_AMQP_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+      - MONGO_HOST=mongo:27017
+      - EVENT_MANAGER_HOST=event_manager
+    depends_on:
+      - "event_manager"
   deployer:
     build:
       context: ./Dockerfiles
