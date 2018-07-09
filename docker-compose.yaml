@@ -77,6 +77,7 @@ services:
       - 6971:6971
     environment:
       - EXECUTOR_HOST=executor
+      - DISCOVERY_HOST=discovery
       - PROCESS_MEMORY_HOST=process_memory
       - ROUTER_HOST=http_router
       - INFLUX_HOST=influxdb
@@ -88,8 +89,23 @@ services:
       - RABBITMQ_PASSWORD=guest
       - MONGO_HOST=mongo:27017
       - EVENT_MANAGER_HOST=event_manager
+      - AUTO_REPROCESSING_ec498841-59e5-47fd-8075-136d79155705=True
     depends_on:
       - "event_manager"
+  discovery:
+    build:
+      context: ./Dockerfiles
+      dockerfile: Discovery
+    container_name: "discovery"
+    ports:
+      - 8090:8090
+    environment:
+      - PROCESS_MEMORY_HOST=process_memory
+      - APICORE_HOST=apicore
+      - POSTGRES_HOST=postgres
+    depends_on:
+      - "apicore"
+      - "process_memory"
   deployer:
     build:
       context: ./Dockerfiles
@@ -110,6 +126,13 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - "apicore"
+  portainer:
+    image: "portainer/portainer"
+    container_name: "portainer"
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
   executor:
     build:
       context: ./Dockerfiles
@@ -143,6 +166,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - DEBUG_MODE=True
+      - REMOVE_CONTAINER_AFTER_EXECUTION=True
       - PROCESS_MEMORY_URL=process_memory
       - PROCESS_MEMORY_PORT=9091
       - COREAPI_URL=apicore

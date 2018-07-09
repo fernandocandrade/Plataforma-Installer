@@ -1,0 +1,6 @@
+FROM pmoneda/go_alpine:latest
+ADD discovery /
+ENV PORT 8090
+RUN chmod +x discovery
+ENTRYPOINT ["/discovery"]
+EXPOSE 8090
