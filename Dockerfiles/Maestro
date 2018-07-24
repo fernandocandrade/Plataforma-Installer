@@ -1,0 +1,6 @@
+FROM pmoneda/go_alpine:latest
+ADD maestro /
+ENV PORT 6971
+RUN chmod +x maestro
+ENTRYPOINT ["/maestro"]
+EXPOSE 6971
