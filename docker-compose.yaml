@@ -166,7 +166,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - DEBUG_MODE=True
-      - REMOVE_CONTAINER_AFTER_EXECUTION=True
+      - REMOVE_CONTAINER_AFTER_EXECUTION=False
       - PROCESS_MEMORY_URL=process_memory
       - PROCESS_MEMORY_PORT=9091
       - COREAPI_URL=apicore
