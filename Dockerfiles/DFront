@@ -1,0 +1,7 @@
+FROM pmoneda/go_alpine:latest
+WORKDIR /app
+COPY front .
+ENV PORT 8384
+RUN chmod +x ui
+ENTRYPOINT ["./ui"]
+EXPOSE 8384
