@@ -16,6 +16,11 @@ services:
     container_name: "adminer"
     ports:
       - 8080:8080
+    labels:
+      - traefik.backend=adminer
+      - "traefik.adminer.frontend.rule=PathPrefixStrip: /adminer"
+      - traefik.docker.network=plataforma_network
+      - traefik.port=8080
   process_memory:
     build:
       context: ./Dockerfiles
@@ -133,10 +138,16 @@ services:
   portainer:
     image: "portainer/portainer"
     container_name: "portainer"
+    command: --no-auth
     ports:
       - 9000:9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - traefik.backend=portainer
+      - "traefik.portainer.frontend.rule=PathPrefixStrip: /portainer"
+      - traefik.docker.network=plataforma_network
+      - traefik.port=9000
   executor:
     build:
       context: ./Dockerfiles
@@ -200,11 +211,25 @@ services:
     ports:
       - 15672:15672
       - 5672:5672
+    labels:
+      - traefik.backend=rabbitmq
+      - "traefik.rabbitmq.frontend.rule=PathPrefixStrip: /rabbitmq"
+      - traefik.docker.network=plataforma_network
+      - traefik.port=15672
   chronograf:
     image: chronograf:alpine
     container_name: "chronograf"
     ports:
       - 8888:8888
+  reverse-proxy:
+    image: traefik # The official Traefik docker image
+    command: --api --docker # Enables the web UI and tells Træfik to listen to docker
+    container_name: proxy
+    ports:
+      - 80:80     # The HTTP port
+      - 8089:8080 # The Web UI (enabled by --api)
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 networks:
   default:
     external:
