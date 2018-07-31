@@ -24,7 +24,7 @@ services:
   process_memory:
     build:
       context: ./Dockerfiles
-      dockerfile: ProcessMemory
+      dockerfile: DProcessMemory
     container_name: "process_memory"
     ports:
       - 9091:9091
@@ -33,7 +33,7 @@ services:
   apicore:
     build:
       context: ./Dockerfiles
-      dockerfile: ApiCore
+      dockerfile: DApiCore
     container_name: "apicore"
     ports:
       - 9110:9110
@@ -54,7 +54,7 @@ services:
   event_manager:
     build:
       context: ./Dockerfiles
-      dockerfile: EventManager
+      dockerfile: DEventManager
     container_name: "event_manager"
     ports:
       - 8081:8081
@@ -76,7 +76,7 @@ services:
   maestro:
     build:
       context: ./Dockerfiles
-      dockerfile: Maestro
+      dockerfile: DMaestro
     container_name: "maestro"
     ports:
       - 6971:6971
@@ -104,7 +104,7 @@ services:
   discovery:
     build:
       context: ./Dockerfiles
-      dockerfile: Discovery
+      dockerfile: DDiscovery
     container_name: "discovery"
     ports:
       - 8090:8090
@@ -115,10 +115,30 @@ services:
     depends_on:
       - "apicore"
       - "process_memory"
+  ui:
+    build:
+      context: ./Dockerfiles
+      dockerfile: DFront
+    container_name: "ui"
+    ports:
+      - 8384:8384
+    environment:
+      - PROCESS_MEMORY_HOST=process_memory
+      - APICORE_HOST=apicore
+      - EVENT_MANAGER_HOST=event_manager
+    labels:
+      - traefik.backend=ui
+      - "traefik.ui.frontend.rule=PathPrefixStrip: /ui"
+      - traefik.docker.network=plataforma_network
+      - traefik.port=8384
+    depends_on:
+      - "apicore"
+      - "process_memory"
+      - "event_manager"
   deployer:
     build:
       context: ./Dockerfiles
-      dockerfile: Deployer
+      dockerfile: DDeployer
     container_name: "deployer"
     ports:
       - 6970:6970
@@ -151,7 +171,7 @@ services:
   executor:
     build:
       context: ./Dockerfiles
-      dockerfile: Executor
+      dockerfile: DExecutor
     container_name: "executor"
     environment:
       - PROCESS_MEMORY_URL=process_memory
@@ -166,7 +186,7 @@ services:
   authprovider:
     build:
       context: ./Dockerfiles
-      dockerfile: AuthProvider
+      dockerfile: DAuthProvider
     container_name: "authprovider"
     environment:
       - PORT=8085
@@ -175,7 +195,7 @@ services:
   celery:
     build:
       context: ./Dockerfiles
-      dockerfile: Celery
+      dockerfile: DCelery
     container_name: "celery"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
