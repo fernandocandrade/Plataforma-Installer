@@ -126,6 +126,7 @@ services:
       - PROCESS_MEMORY_HOST=process_memory
       - APICORE_HOST=apicore
       - EVENT_MANAGER_HOST=event_manager
+      - MAESTRO_HOST=maestro
     labels:
       - traefik.backend=ui
       - "traefik.ui.frontend.rule=PathPrefixStrip: /ui"
