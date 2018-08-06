@@ -202,7 +202,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - DEBUG_MODE=True
-      - REMOVE_CONTAINER_AFTER_EXECUTION=False
+      - REMOVE_CONTAINER_AFTER_EXECUTION=True
       - PROCESS_MEMORY_URL=process_memory
       - PROCESS_MEMORY_PORT=9091
       - COREAPI_URL=apicore
@@ -249,6 +249,17 @@ services:
     ports:
       - 80:80     # The HTTP port
       - 8089:8080 # The Web UI (enabled by --api)
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  logspout:
+    image: gliderlabs/logspout
+    labels:
+      - traefik.backend=logspout
+      - "traefik.logspout.frontend.rule=PathPrefixStrip: /logspout"
+      - traefik.docker.network=plataforma_network
+      - traefik.port=80
+    ports:
+      - 8400:80
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 networks:
