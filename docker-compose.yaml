@@ -127,6 +127,10 @@ services:
       - APICORE_HOST=apicore
       - EVENT_MANAGER_HOST=event_manager
       - MAESTRO_HOST=maestro
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_API_PORT=15672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
     labels:
       - traefik.backend=ui
       - "traefik.ui.frontend.rule=PathPrefixStrip: /ui"
