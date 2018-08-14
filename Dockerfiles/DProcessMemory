@@ -1,7 +1,7 @@
 FROM node:carbon
 
 WORKDIR /usr/src
-RUN git clone -b feature/migrar-commits-gridfs https://github.com/ONSBR/Plataforma-ProcessMemory.git
+RUN git clone  https://github.com/ONSBR/Plataforma-ProcessMemory.git
 RUN cd /usr/src/Plataforma-ProcessMemory && npm install
 WORKDIR /usr/src/Plataforma-ProcessMemory
 ENTRYPOINT [ "node", "index.js" ]
