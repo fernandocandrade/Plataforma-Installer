@@ -1,0 +1,7 @@
+FROM pmoneda/go_alpine:latest
+ADD replay /
+RUN mkdir tapes
+ENV PORT 6081
+RUN chmod +x replay
+ENTRYPOINT ["/replay"]
+EXPOSE 6081
