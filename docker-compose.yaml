@@ -57,6 +57,8 @@ services:
       - PROCESS_MEMORY_PORT=9091
       - COREAPI_URL=apicore
       - COREAPI_PORT=9110
+    depends_on:
+      - "postgres"
   git-server:
     image: pmoneda/git-server
     container_name: git-server
@@ -87,6 +89,7 @@ services:
       - MAESTRO_HOST=maestro
     depends_on:
       - "rabbitmq"
+      - "postgres"
   maestro:
     build:
       context: ./Dockerfiles
@@ -129,6 +132,8 @@ services:
     depends_on:
       - "apicore"
       - "process_memory"
+      - "rabbitmq"
+      - "postgres"
   replay:
     build:
       context: ./Dockerfiles
@@ -147,6 +152,9 @@ services:
       - RABBITMQ_PASSWORD=guest
     depends_on:
       - "apicore"
+      - "event_manager"
+      - "rabbitmq"
+      - "postgres"
   ui:
     build:
       context: ./Dockerfiles
@@ -173,6 +181,8 @@ services:
       - "apicore"
       - "process_memory"
       - "event_manager"
+      - "rabbitmq"
+      - "postgres"
   deployer:
     build:
       context: ./Dockerfiles
@@ -193,6 +203,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - "apicore"
+      - "rabbitmq"
+      - "postgres"
   portainer:
     image: "portainer/portainer"
     container_name: "portainer"
@@ -253,6 +265,8 @@ services:
       - C_FORCE_ROOT=true
     depends_on:
       - "event_manager"
+      - "rabbitmq"
+      - "postgres"
   registry:
     image: "registry:2"
     container_name: "registry"
