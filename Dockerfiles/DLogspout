@@ -1,0 +1,10 @@
+FROM pmoneda/go_alpine:latest
+ADD logspout /
+ENV PORT 80
+RUN mkdir logs
+RUN chmod +x logspout
+RUN touch /logs/log.txt
+ENV FILE_PATH /logs
+RUN ls
+ENTRYPOINT ["/logspout","ons://"]
+EXPOSE 80

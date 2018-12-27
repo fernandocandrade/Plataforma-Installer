@@ -302,7 +302,10 @@ services:
       - 8888:8888
 
   logspout:
-    image: gliderlabs/logspout
+    build:
+      context: ./Dockerfiles
+      dockerfile: DLogspout
+    container_name: "logspout"
     labels:
       - traefik.backend=logspout
       - "traefik.logspout.frontend.rule=PathPrefixStrip: /logspout"
@@ -312,6 +315,7 @@ services:
       - 8400:80
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ~/plataforma_logs:/logs
 networks:
   default:
     external:
